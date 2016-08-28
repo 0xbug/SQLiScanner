@@ -1,0 +1,10 @@
+celery==3.1.23
+Django==1.9
+django-celery==3.1.17
+django-cors-middleware==1.2.0
+django-filter==0.13.0
+djangorestframework==3.4.1
+djangorestframework-word-filter==0.1.1
+psycopg2==2.6.2
+redis==2.10.5
+requests==2.10.0
