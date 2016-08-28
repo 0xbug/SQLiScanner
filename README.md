@@ -3,6 +3,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/0xbug/SQLiScanner.svg)](https://github.com/0xbug/SQLiScanner/issues)
 [![GitHub forks](https://img.shields.io/github/forks/0xbug/SQLiScanner.svg)](https://github.com/0xbug/SQLiScanner/network)
 [![GitHub stars](https://img.shields.io/github/stars/0xbug/SQLiScanner.svg)](https://github.com/0xbug/SQLiScanner/stargazers)
+[![Python 3.x](https://img.shields.io/badge/python-3.x-yellow.svg)](https://www.python.org/) 
 [![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/0xbug/SQLiScanner/master/LICENSE)
 
 > Automatic SQL injection with Charles and sqlmapapi
