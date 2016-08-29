@@ -41,19 +41,6 @@ const columns = [
         dataIndex: 'scan_status',
         width: 100,
         render: status => `${status}`
-    },
-    {
-        title: '操作',
-        key: 'operation',
-        render: (text, record) => (
-            <span>
-      <span className="ant-divider"></span>
-      <a href="#">扫描</a>
-      <span className="ant-divider"></span>
-        <a href="#">复现</a>
-    </span>
-        ),
-        width: 120,
     }
 ];
 
@@ -124,7 +111,7 @@ const Result = React.createClass({
                        pagination={this.state.pagination}
                        loading={this.state.loading}
                        onChange={this.handleTableChange}
-                       scroll={{x: 1300, y: 400}}
+                       scroll={{x: 1080, y: 400}}
                        title={() => `共${this.state.pagination.total}条记录`}
                        footer={() => `共${this.state.pagination.total}条记录`}
                 />
