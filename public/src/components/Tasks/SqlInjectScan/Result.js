@@ -28,7 +28,6 @@ const columns = [
         title: 'Path',
         dataIndex: 'target_path',
         width: 300,
-        // fixed:'left'
     },
     {
         title: '日志',
