@@ -4,7 +4,7 @@ import {Tag, Affix, Table, message, notification, Button} from 'antd';
 import copy from 'copy-to-clipboard';
 
 const openNotification = function (target, poc) {
-    const key = `open${Date.now()}`;
+    const key = target.task_id;
     const btnClick = function () {
         //复制 Poc
         copy(poc);
@@ -12,8 +12,8 @@ const openNotification = function (target, poc) {
         notification.close(key);
     };
     const btn = (
-        <Button type="primary" size="small" onClick={btnClick}>
-            复制 sqlmap 命令
+        <Button type="primary" size="small" onClick={btnClick} icon="copy">
+            sqlmap 命令
         </Button>
     );
     notification.open({
@@ -21,7 +21,7 @@ const openNotification = function (target, poc) {
         description: `链接: ${target.target_url},
                         注入点:${target.scan_data[0].value[0].parameter}`,
         btn,
-        key: target.task_id,
+        key,
         duration: 0,
         onClose: close,
     });
