@@ -21,7 +21,6 @@ from django.conf.urls.static import static
 from rest_framework import routers
 from scanner.views import *
 
-
 apirouter = routers.DefaultRouter('/api/')
 apirouter.register(r'tasks/sqliscan', SqliScanTaskViewSet)
 
@@ -30,5 +29,6 @@ urlpatterns = [
                   url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
                   url(r'^admin/', admin.site.urls),
                   url(r'^$', index),
+                  url(r'^api/tasks/stat/sqli', taskstat),
                   url(r'^api/har/upload', parse_charles),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -117,5 +117,5 @@ class SqlScanTask(object):
 redis-server
 python sqlmapapi.py -s -p 8775
 python manage.py celery worker --loglevel=info
-python manage.py runserver 8000
+python manage.py runserver
 ```

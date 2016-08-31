@@ -7,9 +7,11 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from scanner.tasks import SqlScanTask
-
+import redis
 import os
 import json
+
+stat_db = redis.Redis(host='localhost', port=6379, db=0)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -74,7 +76,23 @@ def handle_uploaded_file(file, filename):
                 except:
                     pass
             scan_url.append(entrie['request']['url'])
-            scan_url_path.append(target_path)
+            scan_url_path.append(scan_url_path)
+
+
+def taskstat(request):
+    if not stat_db.exists('tasks'):
+        hosts = []
+        for target in SqliScanTask.objects.all():
+            s = {'name': target.target_host, 'value': len(SqliScanTask.objects.filter(target_host=target.target_host))}
+            if s not in hosts:
+                hosts.append(s)
+            else:
+                pass
+        stat_db.set('tasks', json.dumps(hosts), ex=500)
+    else:
+        pass
+    data = stat_db.get('tasks')
+    return HttpResponse(data)
 
 
 def index(request):
