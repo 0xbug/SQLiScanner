@@ -9,10 +9,13 @@ import reqwest from 'reqwest';
 
 const Pie = createG2(chart => {
     chart.coord('theta', {
-        radius: 0.5
+        radius: 0.1
     });
-    chart.clear();
-    chart.legend('right');
+    chart.legend({
+        position: 'bottom',// 位置
+        itemWrap: true,
+        spacingX: 20 // 图例之间水平的间距
+    });
     chart.intervalStack().position(Stat.summary.percent('value')).color('name').label('name*..percent', function (name, percent) {
         percent = (percent * 100).toFixed(2) + '%';
         return name + ' ' + percent;
@@ -26,17 +29,18 @@ const Chart = React.createClass({
     getInitialState() {
         return {
             loading: false,
+            forceFit: true,
             data: [],
             width: 800,
-            height: 550,
+            height: 500,
             plotCfg: {
-                margin: [10, 200, 50, 10],
+
             },
         };
     },
 
     fetch() {
-        this.setState({loading: true});
+        this.setState({ loading: true });
         reqwest({
             url: this.props.apiurl,
             method: 'get',
@@ -52,6 +56,9 @@ const Chart = React.createClass({
     changeHandler() {
         const {chart} = this.refs.myChart;
         chart.clear();
+        chart.coord('theta', {
+            radius: 0.4
+        });
         chart.intervalStack().position(Stat.summary.percent('value')).color('name').label('name*..percent', function (name, percent) {
             percent = (percent * 100).toFixed(2) + '%';
             return name + ' ' + percent;
@@ -59,22 +66,23 @@ const Chart = React.createClass({
         chart.render();
     },
 
-    componentWillMount(){
+    componentWillMount() {
         this.fetch();
     },
-    componentDidMount(){
-        setTimeout(this.changeHandler,300);
+    componentDidMount() {
+        setTimeout(this.changeHandler, 300);
     },
     render() {
         return (
             <div>
                 <Pie
                     data={this.state.data}
+                    forceFit={this.state.forceFit}
                     width={this.state.width}
                     height={this.state.height}
                     plotCfg={this.state.plotCfg}
                     ref="myChart"
-                />
+                    />
             </div>
         );
     },
