@@ -51,7 +51,7 @@ pip install -r requirements.txt
 ```
 Syncdb
 ```
-python manage.py makemigrations
+python manage.py makemigrations scanner
 python manage.py migrate
 ```
 
