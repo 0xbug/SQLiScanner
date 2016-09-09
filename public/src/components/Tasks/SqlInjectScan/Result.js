@@ -23,7 +23,6 @@ const openNotification = function (target, poc) {
         btn,
         key,
         duration: 0,
-        onClose: close,
     });
 };
 
@@ -133,7 +132,7 @@ const Result = React.createClass({
                        pagination={this.state.pagination}
                        loading={this.state.loading}
                        onChange={this.handleTableChange}
-                       scroll={{x: 1300, y: 400}}
+                       scroll={{x: 1200, y: 400}}
                        title={() => `共${this.state.pagination.total}条记录`}
                        footer={() => `共${this.state.pagination.total}条记录`}
                 />
