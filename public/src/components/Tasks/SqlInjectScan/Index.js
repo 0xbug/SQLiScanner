@@ -10,12 +10,12 @@ const TabPane = Tabs.TabPane;
 class SQLiScan extends Component {
     render() {
         return (
-            <Tabs defaultActiveKey="1" type="card">
-                <TabPane tab="统计" key="1">
-                    <Chart apiurl={TasksStat} filter={FilterByHost}/>
-                </TabPane>
-                <TabPane tab="添加" key="2">
+            <Tabs defaultActiveKey="2" type="card">
+                <TabPane tab="添加" key="1">
                     <UploadFile action={UploadHarFile}/>
+                </TabPane>
+                <TabPane tab="统计" key="2">
+                    <Chart apiurl={TasksStat} filter={FilterByHost}/>
                 </TabPane>
                 <TabPane tab="概览" key="3">
                     <Result apiurl={ScanSQLi}/>

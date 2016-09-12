@@ -26,9 +26,10 @@
 - osx
 
 ## Screenshots
-![](http://obfxuk8r6.bkt.clouddn.com/ScreenshotsUpload.png)
-
-![](http://obfxuk8r6.bkt.clouddn.com/ScreenshotsResults.png)
+![](http://obfxuk8r6.bkt.clouddn.com/upload.png)
+![](http://obfxuk8r6.bkt.clouddn.com/stat.png)
+![](http://obfxuk8r6.bkt.clouddn.com/allresults.png)
+![](http://obfxuk8r6.bkt.clouddn.com/vulns.png)
 ## Installation
 Preferably, you can download SQLiScanner by cloning the Git repository:
 ```
