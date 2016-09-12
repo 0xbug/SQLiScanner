@@ -3,7 +3,7 @@ import {Tabs} from 'antd';
 import UploadFile from './UploadFile';
 import Result from './Result';
 import Chart from './Chart';
-import {UploadHarFile, ScanSQLi, VulnsScanSQLi, TasksStat} from '../../../AppConfig';
+import {UploadHarFile, ScanSQLi, VulnsScanSQLi, TasksStat, FilterByHost} from '../../../AppConfig';
 
 const TabPane = Tabs.TabPane;
 
@@ -12,7 +12,7 @@ class SQLiScan extends Component {
         return (
             <Tabs defaultActiveKey="1" type="card">
                 <TabPane tab="统计" key="1">
-                    <Chart apiurl={TasksStat}/>
+                    <Chart apiurl={TasksStat} filter={FilterByHost}/>
                 </TabPane>
                 <TabPane tab="添加" key="2">
                     <UploadFile action={UploadHarFile}/>

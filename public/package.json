@@ -3,18 +3,18 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
-    "babel-plugin-antd": "^0.4.1",
-    "react-scripts": "0.2.1"
+    "react-scripts": "0.4.1"
   },
   "dependencies": {
-    "antd": "^1.7.0",
+    "antd": "^1.11.0",
     "copy-to-clipboard": "^3.0.5",
-    "g2": "^2.0.0",
+    "g2": "^2.0.1",
     "g2-react": "^1.0.1",
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1",
-    "react-router": "^2.6.1",
-    "reqwest": "^2.0.5"
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-router": "^2.7.0",
+    "reqwest": "^2.0.5",
+    "timeago.js": "^1.0.9"
   },
   "scripts": {
     "start": "react-scripts start",
