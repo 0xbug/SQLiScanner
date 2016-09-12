@@ -1,5 +1,6 @@
 import reqwest from 'reqwest';
 import React from 'react';
+import TimeAgo from 'timeago-react';
 import {Tag, Affix, Table, message, notification, Button} from 'antd';
 import copy from 'copy-to-clipboard';
 
@@ -33,6 +34,7 @@ const columns = [
         dataIndex: 'scan_time',
         width: 100,
         fixed: 'left',
+        render: time=><TimeAgo date={time} locale='zh_CN'/>
     },
     {
         title: 'Host',
@@ -132,7 +134,7 @@ const Result = React.createClass({
                        pagination={this.state.pagination}
                        loading={this.state.loading}
                        onChange={this.handleTableChange}
-                       scroll={{x: 1200, y: 400}}
+                       scroll={{x: 1200, y: 500}}
                        title={() => `共${this.state.pagination.total}条记录`}
                        footer={() => `共${this.state.pagination.total}条记录`}
                 />

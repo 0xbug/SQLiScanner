@@ -10,7 +10,7 @@ const Dragger = Upload.Dragger;
 let UploadFile = React.createClass({
     render() {
         return (
-            <div style={{marginTop: 16, height: 180}}>
+            <div style={{marginTop: 40, height: 580}}>
                 <Dragger {...{
                     name: 'file',
                     accept: '.har',
