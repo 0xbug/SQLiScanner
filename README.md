@@ -8,7 +8,7 @@
 
 > Automatic SQL injection with Charles and sqlmapapi
 
-中文版说明文档[点这里](https://github.com/0xbug/SQLiScanner)
+中文版说明文档[点这里](https://github.com/0xbug/SQLiScanner/blob/master/README_zh.md)
 
 ## Introduction
 
