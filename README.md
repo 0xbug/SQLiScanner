@@ -8,9 +8,11 @@
 
 > Automatic SQL injection with Charles and sqlmapapi
 
+中文版说明文档[点这里](https://github.com/0xbug/SQLiScanner)
+
 ## Introduction
 
-从 优信二手车内部安全平台 分离出来的一个模块, 支持 **Har** 文件的扫描(搭配 Charles 使用: Tools=>Auto Save)
+> Automatic SQL injection with Charles and sqlmapapi
 
 ## Dependencies
 
@@ -49,17 +51,6 @@ cd SQLiScanner/
 virtualenv --python=/usr/local/bin/python3.5 venv
 source venv/bin/activate
 pip install -r requirements.txt
-```
-Syncdb
-```
-python manage.py makemigrations scanner
-python manage.py migrate
-```
-
-Create superuser
-
-```
-python manage.py createsuperuser
 ```
 
 ## Setting
@@ -110,6 +101,18 @@ class SqlScanTask(object):
         self.mail_from = ""
         self.mail_to = [""]
 
+```
+
+## Syncdb
+```
+python manage.py makemigrations scanner
+python manage.py migrate
+```
+
+## Create superuser
+
+```
+python manage.py createsuperuser
 ```
 
 ## Run
