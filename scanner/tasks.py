@@ -1,3 +1,4 @@
+#coding=utf-8
 from django.core.mail import send_mail
 from celery import task, platforms
 import json

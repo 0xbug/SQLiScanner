@@ -1,3 +1,4 @@
+#coding=utf-8
 from scanner.serializers import SqliScanTaskSerializer
 from scanner.models import SqliScanTask
 from rest_framework import viewsets, filters
