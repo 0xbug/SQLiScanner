@@ -35,11 +35,11 @@ SQLiScanner
 
 ## 截图
 
-![](http://obfxuk8r6.bkt.clouddn.com/upload.png)
-![](http://obfxuk8r6.bkt.clouddn.com/stat.png)
-![](http://obfxuk8r6.bkt.clouddn.com/allresults.png)
-![](http://obfxuk8r6.bkt.clouddn.com/detail.png)
-![](http://obfxuk8r6.bkt.clouddn.com/vulns.png)
+![](http://obfxuk8r6.bkt.clouddn.com/sqliscanner-upload.png)
+![](http://obfxuk8r6.bkt.clouddn.com/sqliscanner-stat.png)
+![](http://obfxuk8r6.bkt.clouddn.com/sqliscanner-allresults.png)
+![](http://obfxuk8r6.bkt.clouddn.com/sqliscanner-detail.png)
+![](http://obfxuk8r6.bkt.clouddn.com/sqliscanner-vulns.png)
 
 ## 安装
 
