@@ -77,7 +77,7 @@ DATABASES = {
 
 SendEmail Setting
 ```
-SQLiScanner/settings.py:152
+SQLiScanner/settings.py:158
 ```
 ```
 # Email
@@ -93,7 +93,7 @@ DEFAULT_FROM_EMAIL = ''
 
 
 ```
-scanner/tasks.py:13
+scanner/tasks.py:14
 ```
 
 ```
