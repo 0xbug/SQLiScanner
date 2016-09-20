@@ -1,15 +1,17 @@
 import reqwest from 'reqwest';
 import React from 'react';
 import TimeAgo from 'timeago-react';
-import {Tag, Affix, Table, message, notification, Button} from 'antd';
+import {Modal, Icon, Tag, Affix, Table, message, notification, Button} from 'antd';
 import copy from 'copy-to-clipboard';
 
-const openNotification = function (target, poc) {
+const ButtonGroup = Button.Group;
+
+const vulNotification = (target) => {
+    const poc = `sqlmap -u "${target.scan_options.url}" --data="${target.scan_options.data}" --dbms=${target.scan_data[0].value[0].dbms} --method=${target.scan_options.method} --cookie="${target.scan_options.cookie}"`;
+
     const key = target.task_id;
-    const btnClick = function () {
-        //复制 Poc
+    const btnClick = () => {
         copy(poc);
-        // 隐藏提醒框
         notification.close(key);
     };
     const btn = (
@@ -23,10 +25,37 @@ const openNotification = function (target, poc) {
                         注入点:${target.scan_data[0].value[0].parameter}`,
         btn,
         key,
-        duration: 0,
+        duration: 2,
     });
 };
 
+const viewDetail = (target) => {
+    Modal.info({
+        title: target.target_host,
+        okText: "关闭",
+        content: (
+            <div>
+                <p>目标: {target.target_url}</p>
+                <p>请求方式: {target.target_method}</p>
+                <p>Referer: {target.scan_options['referer']}</p>
+                <p>请求参数: {target.target_param}</p>
+                <p>路径：{target.target_path}</p>
+                {target.vulnerable ? <p>注入点：{target.scan_data[0].value[0].parameter}</p> : ''}
+            </div>
+        ),
+        onOk() {
+        },
+    });
+};
+const delTask = (target) => {
+    reqwest({
+        url: target.url
+        , method: 'delete'
+        , success: function () {
+            message.success("删除成功");
+        }
+    })
+};
 
 const columns = [
     {
@@ -34,7 +63,7 @@ const columns = [
         dataIndex: 'scan_time',
         width: 100,
         fixed: 'left',
-        render: time=><TimeAgo date={time} locale='zh_CN'/>
+        render: time => <TimeAgo date={time} locale='zh_CN'/>
     },
     {
         title: 'Host',
@@ -45,29 +74,49 @@ const columns = [
     {
         title: '结果',
         dataIndex: 'vulnerable',
-        width: 70,
+        width: 100,
         fixed: 'left',
-        render: vulnerable=>(vulnerable ? <Tag color="red">严重</Tag> : '安全')
-    },
-
-    {
-        title: '路径',
-        dataIndex: 'target_path',
-        width: 300,
-        // fixed:'left'
-    },
-    {
-        title: '日志',
-        dataIndex: 'scan_log',
-        width: 480,
-        render: log => `${log.message}`
+        render: vulnerable => (vulnerable ? <Tag color="red">严重</Tag> : '安全')
     },
     {
         title: '状态',
         dataIndex: 'scan_status',
         width: 100,
-        render: scan_status=>(scan_status === 'terminated' ? '完成' : <Tag color="green">扫描中</Tag>)
+        fixed: 'left',
+        render: scan_status => (scan_status === 'terminated' ? '完成' : <Tag color="green">扫描中</Tag>)
     },
+
+    {
+        title: '路径',
+        dataIndex: 'target_path',
+        width: 200,
+    },
+    {
+        title: '日志',
+        dataIndex: 'scan_log',
+        width: 500,
+        render: log => `${log.message}`
+    },
+
+    {
+        title: '操作',
+        key: 'operation',
+        fixed: 'right',
+        width: 150,
+
+        render: (target) => (
+            <span>
+                <ButtonGroup>
+                    <Button type="dashed" onClick={(e) => viewDetail(target) }><Icon type="info-circle-o"/></Button>
+                    <Button type="dashed" onClick={(e) => delTask(target) }>
+                        <Icon type="cross-circle-o"/>      </Button>
+                    {target.vulnerable ? <Button type="dashed" onClick={(e) => vulNotification(target) }>
+                        <Icon type="copy"/>
+                    </Button> : ''}
+                </ButtonGroup>
+            </span>
+        ),
+    }
 ];
 
 
@@ -77,6 +126,7 @@ const Result = React.createClass({
             data: [],
             pagination: {},
             loading: false,
+            url: this.props.apiurl
         };
     },
 
@@ -91,56 +141,53 @@ const Result = React.createClass({
             ...filters,
         });
     },
-    fetch(params = {}) {
-        this.setState({loading: true});
-        reqwest({
-            url: this.props.apiurl,
-            method: 'get',
-            data: {
-                page: 1,
+fetch(params = {}) {
+    this.setState({ loading: true });
+    reqwest({
+        url: this.props.apiurl,
+        method: 'get',
+        data: {
+            page: 1,
                 ...params,
             },
-            type: 'json',
+type: 'json',
         }).then(data => {
-            const pagination = this.state.pagination;
-            pagination.total = data.count;
-            message.success(`成功加载${data.count}条数据`);
+    const pagination = this.state.pagination;
+    pagination.total = data.count;
+    message.success(`成功加载${data.count}条数据`);
+    this.setState({
+        loading: false,
+        data: data.results,
+        count: data.count,
+        pagination,
+    });
+    // this.state.data.forEach(function (target) {
+    //     if (target.vulnerable) {
+    //         vulNotification(target)
+    //     }
+    // });
 
-            this.setState({
-                loading: false,
-                data: data.results,
-                count: data.count,
-                pagination,
-            });
-
-            this.state.data.forEach(function (target) {
-                if (target.vulnerable) {
-                    const poc = `sqlmap -u "${target.scan_options.url}" --data="${target.scan_options.data}" --dbms=${target.scan_data[0].value[0].dbms} --method=${target.scan_options.method} --cookie="${target.scan_options.cookie}"`;
-                    openNotification(target, poc)
-                }
-            });
-
-        });
+});
     },
-    componentDidMount() {
-        this.fetch();
-    },
-    render() {
-        return (
-            <Affix>
-                <Table columns={columns}
-                       rowKey='id'
-                       dataSource={this.state.data}
-                       pagination={this.state.pagination}
-                       loading={this.state.loading}
-                       onChange={this.handleTableChange}
-                       scroll={{x: 1200, y: 500}}
-                       title={() => `共${this.state.pagination.total}条记录`}
-                       footer={() => `共${this.state.pagination.total}条记录`}
+componentDidMount() {
+    this.fetch();
+},
+render() {
+    return (
+        <Affix>
+            <Table columns={columns}
+                rowKey='id'
+                dataSource={this.state.data}
+                pagination={this.state.pagination}
+                loading={this.state.loading}
+                onChange={this.handleTableChange}
+                scroll={{ x: 1300, y: 500 }}
+                title={() => `共${this.state.pagination.total}条记录`}
+                footer={() => `共${this.state.pagination.total}条记录`}
                 />
-            </Affix>
-        );
-    },
+        </Affix>
+    );
+},
 });
 
 
