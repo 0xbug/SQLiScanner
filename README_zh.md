@@ -38,6 +38,7 @@ SQLiScanner
 ![](http://obfxuk8r6.bkt.clouddn.com/upload.png)
 ![](http://obfxuk8r6.bkt.clouddn.com/stat.png)
 ![](http://obfxuk8r6.bkt.clouddn.com/allresults.png)
+![](http://obfxuk8r6.bkt.clouddn.com/detail.png)
 ![](http://obfxuk8r6.bkt.clouddn.com/vulns.png)
 
 ## 安装
