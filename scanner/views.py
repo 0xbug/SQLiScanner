@@ -42,8 +42,7 @@ def parse_charles(request):
 
     return HttpResponse("error")
 
-@login_required
-@csrf_exempt
+
 def handle_uploaded_file(file, filename):
     if not os.path.exists('upload/'):
         os.mkdir('upload/')
