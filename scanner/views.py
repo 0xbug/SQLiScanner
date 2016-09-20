@@ -2,6 +2,8 @@
 from scanner.serializers import SqliScanTaskSerializer
 from scanner.models import SqliScanTask
 from rest_framework import viewsets, filters
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -14,6 +16,10 @@ import json
 
 stat_db = redis.Redis(host='localhost', port=6379, db=0)
 
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+
+    def enforce_csrf(self, request):
+        return
 
 @method_decorator(login_required, name='dispatch')
 class SqliScanTaskViewSet(viewsets.ModelViewSet):
@@ -22,6 +28,7 @@ class SqliScanTaskViewSet(viewsets.ModelViewSet):
     """
     queryset = SqliScanTask.objects.all()
     serializer_class = SqliScanTaskSerializer
+    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('vulnerable', 'target_host')
 
@@ -35,7 +42,8 @@ def parse_charles(request):
 
     return HttpResponse("error")
 
-
+@login_required
+@csrf_exempt
 def handle_uploaded_file(file, filename):
     if not os.path.exists('upload/'):
         os.mkdir('upload/')
@@ -79,7 +87,8 @@ def handle_uploaded_file(file, filename):
             scan_url.append(entrie['request']['url'])
             scan_url_path.append(scan_url_path)
 
-
+@login_required
+@csrf_exempt
 def taskstat(request):
     if not stat_db.exists('tasks'):
         hosts = []
