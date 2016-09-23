@@ -30,5 +30,5 @@ urlpatterns = [
                   url(r'^admin/', admin.site.urls),
                   url(r'^$', index),
                   url(r'^api/tasks/stat/sqli', taskstat),
-                  url(r'^api/har/upload', parse_charles),
+                  url(r'^api/har/upload', addtaskbyhar),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
