@@ -79,7 +79,7 @@ def parse_uploaded_file(filename):
                         "{}={}".format(i['name'], i['value']) for i in entrie['request']['cookies'])
                 if entrie['request']['headers']:
                     scan_options['headers'] = ";".join(
-                        "{}={}".format(i['name'], i['value']) for i in entrie['request']['headers'])
+                        "'{}':'{}'".format(i['name'], i['value']) for i in entrie['request']['headers'])
                     for i in entrie['request']['headers']:
                         if i['name'] == 'Referer':
                             scan_options['referer'] = i['value']
