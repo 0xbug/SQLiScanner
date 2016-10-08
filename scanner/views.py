@@ -12,7 +12,7 @@ from scanner.tasks import SqlScanTask
 import redis
 import os
 import json
-
+import re
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
     def enforce_csrf(self, request):
