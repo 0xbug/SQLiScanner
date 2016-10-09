@@ -85,9 +85,9 @@ WSGI_APPLICATION = 'SQLiScanner.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
+        'NAME': 'sqliscannerdb',
+        'USER': 'sqliscanner',
+        'PASSWORD': 'scanner!@#',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
