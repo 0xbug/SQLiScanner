@@ -9,7 +9,7 @@ SQLiScanner
 
 
 ## 简介
-> 叕一款基于SQLMAP和Charles的被动SQL 注入漏洞扫描工具
+> 叕一款基于SQLMAP和Charles的SQL 注入漏洞扫描工具
 
 支持 **Har** 文件的扫描(搭配 Charles 使用: Tools=>Auto Save)
 
